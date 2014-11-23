@@ -1,5 +1,5 @@
 package com.zhxrui.maven.usermanagersystem.Entity;
-
+import java.io.*;
 public class User
 {
 	private int id;//用户ID
@@ -20,15 +20,19 @@ public class User
 		this.id = id;
 	}
 	public String getUsername() {
+		
 		return username;
 	}
 	public void setUsername(String username) {
+		System.out.println("1++"+username);
 		this.username = username;
 	}
 	public String getPassword() {
+		
 		return password;
 	}
 	public void setPassword(String password) {
+		System.out.println("2++"+password);
 		this.password = password;
 	}
 	public String getName() {

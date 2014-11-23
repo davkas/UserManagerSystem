@@ -6,16 +6,26 @@
 	<package name="default" extends="struts-default">
 		<interceptors>
 			<interceptor name="initdata" class="com.zhxrui.maven.usermanagersystem.Interceptor.GetAllUserInterceptor"></interceptor>
+			<interceptor name="islogin" class="com.zhxrui.maven.usermanagersystem.Interceptor.LoginTestInterceptor"></interceptor>
 			<!-- 登录系统时初始化数据 -->
 			<interceptor-stack name="init_interceptor">
 				<interceptor-ref name="defaultStack"></interceptor-ref>
 				<interceptor-ref name="initdata"></interceptor-ref>
 			</interceptor-stack>
+			<interceptor-stack name="islogin_interceptor">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="islogin"></interceptor-ref>
+			</interceptor-stack>
 		</interceptors>
 		<action name="login" class="com.zhxrui.maven.usermanagersystem.Action.UserLoginAction">
-			<result>/index.jsp</result>
+			<result name="success">/index.jsp</result>
 			<result name="input">/login.jsp</result>
 			<interceptor-ref name="init_interceptor"></interceptor-ref>
+		</action>
+		<action name="scan" class="com.zhxrui.maven.usermanagersystem.Action.UserScanAction">
+			<result>/userinfo.jsp</result>
+			<result name="input">/login.jsp</result>
+			<interceptor-ref name="islogin_interceptor"></interceptor-ref>
 		</action>
 	</package>
 </struts>

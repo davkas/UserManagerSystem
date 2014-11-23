@@ -10,7 +10,18 @@ import com.zhxrui.maven.usermanagersystem.DAO.BaseDAO;
 
 public  class BaseDAOImpl   {
 	private static Connection con;
-	
+	static
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+	}
 	public static  Connection getConnection() {
 		// TODO Auto-generated method stub
 		try {

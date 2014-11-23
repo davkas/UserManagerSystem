@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.sql.Connection;
+
 import com.zhxrui.maven.usermanagersystem.DAO.UserDAO;
 import com.zhxrui.maven.usermanagersystem.Entity.User;
 
@@ -44,8 +45,17 @@ public class UserDAOImpl implements UserDAO {
 
 	public boolean login(User user) {
 		// TODO Auto-generated method stub
+		System.out.println("dao+"+user.getUsername());
+		System.out.println("dao+"+user.getPassword());
 		boolean flag=false;
 		con=BaseDAOImpl.getConnection();
+		try {
+			if(con!=null && !con.isClosed())
+				System.out.println("连接创建成功");
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			ps=con.prepareStatement("select * from t_user where username=? and password=?");
 		
@@ -75,12 +85,30 @@ public class UserDAOImpl implements UserDAO {
 		{
 			BaseDAOImpl.cloasAll(rs, ps, con);//¹Ø±ÕÊý¾Ý¿âµÄÁ¬½Ó
 		}
+		System.out.print(flag);
 		 return flag;
 	}
 
 	public User selectUserInfo(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		User user= new User();
+		con= BaseDAOImpl.getConnection();
+		try {
+			ps=con.prepareStatement("select * from t_user where id =?");
+			ps.setInt(1, id);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				user.setId(rs.getInt(1));
+				user.setUsername(rs.getString(rs.getString(2)));
+				user.setPassword(rs.getString(3));
+				user.setName(rs.getString(4));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return user;
 	}
 
 	public List findAllUsers() {

@@ -11,8 +11,9 @@ public class BaseDaoTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Connection con= BaseDAOImpl.getConnection();
-		if(con!=null)
+		if(con!=null){
 			System.out.println("success");
+		}
 		else
 			System.out.println("failed");
 		
